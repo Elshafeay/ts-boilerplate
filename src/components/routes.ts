@@ -1,10 +1,8 @@
-import { Express } from 'express';
+import express, { Express } from 'express';
 import userRouter from './user/user.routes';
 
-class routing {
+const apiRouter = express.Router();
 
-  api(app: Express) {
-    userRouter(app);
-  }
-}
-export default new routing();
+apiRouter.use(userRouter);
+
+export default apiRouter;

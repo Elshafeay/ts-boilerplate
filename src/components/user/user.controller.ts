@@ -28,13 +28,13 @@ class UserController {
     const existingUser = await User.findOneByEmail(email);
 
     if(existingUser){
-      res.status(400).send({ message: 'There\'s a user with this email already!' });
+      return res.status(400).send({ message: 'There\'s a user with this email already!' });
     }
 
     const dataObject: ICreateUser = { firstname, lastname, email, password };
 
     const user = await User.create(dataObject);
-    return res.status(201).send(user);
+    res.status(201).send(user);
   }
 }
 

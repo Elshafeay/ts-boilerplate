@@ -5,7 +5,7 @@ import express, { Request, Response } from 'express';
 import 'express-async-errors';
 
 import { errorHandler } from './src/middlewares/error-handler';
-import routing from './src/components/routes';
+import apiRouter from './src/components/routes';
 import morganMiddleware from './src/middlewares/morgan';
 
 const app = express();
@@ -16,7 +16,7 @@ app.get('/', (req: Request, res: Response): void => {
   res.send('Welcome to the home page!');
 });
 
-routing.api(app);
+app.use(apiRouter);
 
 app.all('*', async (req, res) => {
   res.status(404).send('Not Found!');
