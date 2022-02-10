@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { RequestValidationError } from '../errors/request-validation-error';
 import { IValidationSchema, JoiRequestValidationError } from '../utils/joi.interfaces';
 
 export function validateRequest(schema: IValidationSchema) {
@@ -9,20 +10,25 @@ export function validateRequest(schema: IValidationSchema) {
     next: NextFunction,
   ) => {
 
+    const result = [];
     const { headers, query, params, body } = req;
 
     try{
       if(schema.headers){
-        await schema.headers.validateAsync(headers);
+        const headerValidations = await schema.headers.validateAsync(headers);
+        result.push(headerValidations);
       }
       if(schema.query){
-        await schema.query.validateAsync(query);
+        const queryValidations = await schema.query.validateAsync(query);
+        result.push(queryValidations);
       }
       if(schema.params){
-        await schema.params.validateAsync(params);
+        const ParamsValidations = await schema.params.validateAsync(params);
+        result.push(ParamsValidations);
       }
       if(schema.body){
-        await schema.body.validateAsync(body);
+        const bodyValidations = await schema.body.validateAsync(body);
+        result.push(bodyValidations);
       }
       next();
     }catch (err){
@@ -32,7 +38,7 @@ export function validateRequest(schema: IValidationSchema) {
         field: error.context.key,
       }));
 
-      res.status(400).send(errors);
+      throw new RequestValidationError(errors);
     }
   };
 }

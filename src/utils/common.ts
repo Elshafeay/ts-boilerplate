@@ -32,10 +32,13 @@ class Common {
     }
   }
 
+  // Any is used here because we can't determine the object structure ahead
+  // as this is used for the selection of different models
   static async dbFetch(table: string, conditions:any = null, selections:any = null){
     try{
 
       let query, replacements;
+
       const select = selections? `${selections.join(', ')}`: '*';
 
       if(conditions){
@@ -59,6 +62,48 @@ class Common {
       );
 
       return Array.from(rows);
+    }catch(err){
+      Logger.error('SEQUELIZE ERROR: ', err);
+    }
+  }
+
+  // Any is used here because we can't determine the object structure ahead
+  // as this is used for updating different models
+  static async dbUpdate(table: string, data: any, conditions: any){
+    try{
+      const [results, updated] = await sequelize.query(
+        `
+          update ${table} set ${Object.keys(data).map(k => `${k} = ?`)}
+          where ${(Object.keys(conditions).map(k => `${k} = ?`)).join(' AND ')};
+        `,
+        {
+          replacements: [ ...Object.values(data), ...Object.values(conditions) ],
+          type: QueryTypes.UPDATE,
+        },
+      );
+      return {
+        data: (results as unknown) as any,
+        updated,
+      };
+    }catch(err){
+      Logger.error('SEQUELIZE ERROR: ', err);
+    }
+  }
+
+  // Any is used here because we can't determine the object structure ahead
+  // as this is used for the deletion of different models
+  static async dbDeletion(table: string, conditions: any){
+    try{
+      return await sequelize.query(
+        `
+          Delete from ${table}
+          where ${(Object.keys(conditions).map(k => `${k} = ?`)).join(' AND ')};
+        `,
+        {
+          replacements: [ ...Object.values(conditions) ],
+          type: QueryTypes.DELETE,
+        },
+      );
     }catch(err){
       Logger.error('SEQUELIZE ERROR: ', err);
     }

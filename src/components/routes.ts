@@ -1,10 +1,10 @@
 import { Express } from 'express';
-import userRouter from './user/user.routes';
+import user from './user/user.routes';
 
 class routing {
 
   api(app: Express) {
-    userRouter(app);
+    user(app);
   }
 }
 export default new routing();
