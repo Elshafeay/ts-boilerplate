@@ -1,16 +1,16 @@
-# Typescript Boilerplate Project
-This is a typescript production-grade boilerplate project.
+# Storefront Backend Project
 
 ## Table of Contents
 
 * [Description](#Description)
 * [Prerequisites](#Prerequisites)
 * [Instructions](#Instructions)
+* [Areas of Improvement](#Improvement)
 
 ## Description
 
 This is a boilerplate Project for Typescript.
-It features the use of **Typescript**, **Sequelize**, **Jasmine**, **Winston & Morgan**, **Joi**, and **Eslint**.
+It features the use of **Typescript**, **Sequelize**, **PostgreSQL**, **Jasmine**, **Winston & Morgan**, **Joi**, and **Eslint**.
 
 ## Prerequisites
 Your machine must have the following installed on it:
@@ -45,3 +45,7 @@ npm test
 ```
 
 Any by now you should be able to go to `localhost:3000` to test that everything is working as expected.
+
+## Areas of Improvement <a name="Improvement"></a>
+- Adding Support for ORM/Query-Builder models.
+- Adding Factories and Seeds for these models.
