@@ -1,4 +1,5 @@
-# Storefront Backend Project
+# Typescript Boilerplate Project
+This is a typescript production-grade boilerplate project.
 
 ## Table of Contents
 
@@ -9,7 +10,7 @@
 ## Description
 
 This is a boilerplate Project for Typescript.
-It features the use of **Typescript**, **Sequelize**, **PostgreSQL**, **Jasmine**, **Winston & Morgan**, **Joi**, and **Eslint**.
+It features the use of **Typescript**, **Sequelize**, **Jasmine**, **Winston & Morgan**, **Joi**, and **Eslint**.
 
 ## Prerequisites
 Your machine must have the following installed on it:
