@@ -1,4 +1,3 @@
-import User from '../components/user/user.model';
 import jwt from 'jsonwebtoken';
 import { IUserSerialized } from '../components/user/user.interfaces';
 

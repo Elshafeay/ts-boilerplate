@@ -1,4 +1,5 @@
 import { Sequelize } from 'sequelize-typescript';
+import Logger from '../src/middlewares/logger';
 
 require('dotenv').config();
 
@@ -33,9 +34,10 @@ const sequelize = new Sequelize(config.database!, config.username!, config.passw
 const startDbConnection = async () => {
   try {
     await sequelize.authenticate();
-    console.log('Connection to database has been established successfully.');
-  } catch (error) {
-    console.error('Unable to connect to the database:', error);
+    Logger.info('Connection to database has been established successfully.');
+  } catch (error: any) {
+    Logger.error('Unable to connect to the database:');
+    Logger.error(error.message);
   }
 };
 
