@@ -9,7 +9,7 @@ export const errorHandler = (
 ) => {
 
   // For any thrown errors in the application
-  Logger.error(err);
+  Logger.error(err.message);
 
   res.status(400).send({
     status: 400,
